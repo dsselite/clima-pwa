@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima Cos</title>
+
+    <meta name="theme-color" content="#F0DB4F"> <!-- //La barra de direccion se le da color  -->
+    <meta name="MobileOptimized" content="width"> <!--  // El sitio esta optimizado para navegadores moviles -->
+    <meta name="HandheldFriendly" content="true"> <!-- // El sitio esta optimizado para navegadores moviles -->
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- // Etiquetas para dispositivos Iphone -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- // Etiquetas para dispositivos Iphone-->
+    <link rel="shortcut icon" type="image/png" href="./img/icon_32.png"> 
+    <link rel="apple-touch-icon" href="./img/favicon.png">
+    <link rel="apple-touch-startup-image" href="./img/favicon.png">
+    <link rel="manifest" href="./manifest.json">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+    <body>
+        <div class="container section">
+
+            <div class="row" style="margin-left: 450px; margin-top: 10px;">
+                <div class="col s12">
+                    <div class="card horizontal">
+
+                        <div class="card-image">
+                            <img src="img/clima.jpg">
+                        </div>
+
+                        <div class="card-content">
+                            <span>
+                                <main class="">
+                                    <section id="Clima" class="center-align"></section>
+                                </main>
+                            </span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+
+    
+    
+    const url = 'https://api.tutiempo.net/json/?lan=es&apid=XxG4za4XqX4vxQM&lid=53833';
+
+    fetch(url)//Se pone el metodo fetch y le indicamos de donde sacaremos los datos
+    .then(res => res.json())//indicamos que los datos vendran en forma de JSON 
+    .then(data => { //Aquí se maneja la data que se recibe desde la API 
+    console.log(data); //Aquí se imprimen por consola los datos de la API
+    //console.log(data.day1);
+
+    let datosclima = [data.day1]; //Aquí datosclima es un arreglo, en donde guarda la data de la API
+    // datosclima = data.day1;
+    console.log(datosclima); //Aquí se imprimen por consola los datos
+
+    let datos = ''; //Se crea una variable con un string vacio
+    datosclima.forEach(d => {//El arreglo de la línea 27 se le agrega un foreach para que cree los datos
+        
+    //Aquí se guarda los datos de la API    
+   
+    datos +=`<p>Lectura del clima para ${d.date}</p> 
+        <p>Temperatura maxima: ${d.temperature_max}</p>
+        <p>Temperatura minima: ${d.temperature_min}</p>
+        <p>Pronostico: ${d.text}</p>
+    `;//creamos la estructura html y dentro metemos los datos del array
+    });
+
+    const infoClima = document.querySelector('#Clima').innerHTML = datos; //Se selecciona el elemento con el ID clima
+});
+</script>
+<script src="./script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
